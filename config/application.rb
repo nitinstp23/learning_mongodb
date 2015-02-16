@@ -7,7 +7,7 @@ require "action_controller/railtie"
 # you've limited to :test, :development, or :production.
 Bundler.require(:default, Rails.env)
 
-module DemoMongoService
+module LearningMongodb
   class Application < Rails::Application
     config.mongoid.logger = Logger.new($stdout, :warn)
   end

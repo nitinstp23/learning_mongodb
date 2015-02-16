@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-DemoMongoService::Application.config.secret_key_base = '6754bd5b6b4ccde410dc4be65a18da89b5ab9af413dace105bd41dbe9a99618680f1b6fc3eb3d3008b37430e250cd3a7a9b6ba885d352c39179f1eba520e95ff'
+LearningMongodb::Application.config.secret_key_base = '6754bd5b6b4ccde410dc4be65a18da89b5ab9af413dace105bd41dbe9a99618680f1b6fc3eb3d3008b37430e250cd3a7a9b6ba885d352c39179f1eba520e95ff'

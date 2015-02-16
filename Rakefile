@@ -3,4 +3,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-DemoMongoService::Application.load_tasks
+LearningMongodb::Application.load_tasks

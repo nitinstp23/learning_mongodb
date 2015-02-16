@@ -1,4 +1,4 @@
-DemoMongoService::Application.routes.draw do
+LearningMongodb::Application.routes.draw do
 
   namespace :api, defaults: {format: 'json'} do
     scope :v1 do
