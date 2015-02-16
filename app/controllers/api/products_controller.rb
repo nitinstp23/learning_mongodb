@@ -1,0 +1,27 @@
+class API::ProductsController < ApplicationController
+  before_action :authenticate
+
+  def index
+    render json: Product.all
+  end
+
+  def create
+    product = Product.new(product_params)
+
+    if product.save
+      render json: product
+    else
+      render json: {product: {errors: product.errors}}, status: :internal_server_error
+    end
+  end
+
+  def show
+    render json: Product.find(params[:id])
+  end
+
+  private
+
+  def product_params
+    params.require(:product).permit(:name, :price, :availability)
+  end
+end
