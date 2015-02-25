@@ -10,5 +10,14 @@ gem 'bcrypt'
 
 group :development do
   gem 'thin'
+end
+
+group :test do
+  gem 'rspec-rails', '~> 3.2.0'
+  gem 'mongoid-rspec', '~> 2.1.0'
+  gem 'faker'
+end
+
+group :development, :test do
   gem 'byebug'
 end

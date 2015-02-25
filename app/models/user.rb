@@ -14,27 +14,36 @@ class User
   field :password_hash, type: String
   field :auth_token, type: String
 
-  attr_accessor :password, :password_confirmation
+  attr_reader :password
 
-  validates_presence_of :name, :email, :password
+  # embeds_many :addresses, validate: false
+
+  validates_presence_of :name
+  validates :email, presence: true, email: true
   validates_uniqueness_of :email
-  # validates_format_of :email, :with => /^[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}$/i, :message => "Please Enter a Valid Email Address."
-  validates_length_of :password, :minimum => 8, :message => "Password Must Be Longer Than 8 Characters."
-  validates_confirmation_of :password, :message => "Password Confirmation Must Match Given Password."
+
+  validate do |record|
+    record.errors.add(:password, :blank) if record.password_hash.blank?
+  end
+
+  validates_length_of :password, minimum: 8, message: "Password must be longer than 8 characters"
+  validates_confirmation_of :password, message: "Password confirmation must match given password"
 
   before_create :set_auth_token
 
-  def password
-    @password ||= BCrypt::Password.new(self.password_hash)
+  def password=(unencrypted_password)
+    return if unencrypted_password.blank?
+
+    @password = unencrypted_password
+    self.password_hash = BCrypt::Password.create(unencrypted_password)
   end
 
-  def password=(new_password)
-    @password = BCrypt::Password.create(new_password)
-    self.password_hash = @password
+  def password_confirmation=(unencrypted_password)
+    @password_confirmation = unencrypted_password
   end
 
-  def authenticate(user_password)
-    password == user_password
+  def authenticate(unencrypted_password)
+    BCrypt::Password.new(self.password_hash) == unencrypted_password
   end
 
   private
