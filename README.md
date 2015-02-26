@@ -9,7 +9,7 @@
 curl -v -H "Content-type: application/json" -X POST http://localhost:3000/api/v1/users -d '{"user":{"name":"nitin misra", "email":"nitin@example.com", "password":"12345", "password_confirmation":"12345"}}'
 ```
 
-Response of curl request
+**Response**
 ===============================================
 ```
 > POST /api/v1/users HTTP/1.1
@@ -45,7 +45,7 @@ Response of curl request
 curl -v -H "Content-type: application/json" -X POST http://localhost:3000/api/v1/sessions -d '{"email":"nitin.misra@example.com", "password":"12345"}'
 ```
 
-Response of curl request
+**Response**
 ===============================================
 ```
 > POST /api/v1/sessions HTTP/1.1
@@ -79,10 +79,10 @@ Response of curl request
 
 ---------------------------------------------------------------------------------------
 ```
-curl -v -H "Content-type: application/json" -X GET http://localhost:3000/api/v1/products
+curl -v -H "Authorization: Token token=d881b7d3_c806_4ce4_aa54_f37fa50feb91" -H "Content-type: application/json" -X GET http://localhost:3000/api/v1/products
 ```
 
-Response of curl request
+**Response**
 ===============================================
 ```
 > GET /api/v1/products HTTP/1.1
@@ -117,7 +117,7 @@ Response of curl request
 curl -v -H "Authorization: Token token=d881b7d3_c806_4ce4_aa54_f37fa50feb91" -H "Content-type: application/json" -X POST http://localhost:3000/api/v1/products -d '{"product":{"name":"bisibelle bath", "price":19.95, "availability":true}}'
 ```
 
-Response of curl request
+**Response**
 ===============================================
 ```
 > POST /api/v1/products HTTP/1.1
@@ -154,7 +154,7 @@ Response of curl request
 curl -v -H "Authorization: Token token=d881b7d3_c806_4ce4_aa54_f37fa50feb91" -H "Content-type: application/json" -X GET http://localhost:3000/api/v1/products/54eef9686e69746778010000
 ```
 
-Response of curl request
+**Response**
 ===============================================
 ```
 > GET /api/v1/products/54eef9686e69746778010000 HTTP/1.1
