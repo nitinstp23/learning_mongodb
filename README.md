@@ -10,7 +10,7 @@ curl -v -H "Content-type: application/json" -X POST http://localhost:3000/api/v1
 ```
 
 **Response**
-===============================================
+
 ```
 > POST /api/v1/users HTTP/1.1
 > User-Agent: curl/7.35.0
@@ -46,7 +46,6 @@ curl -v -H "Content-type: application/json" -X POST http://localhost:3000/api/v1
 ```
 
 **Response**
-===============================================
 ```
 > POST /api/v1/sessions HTTP/1.1
 > User-Agent: curl/7.35.0
@@ -83,7 +82,6 @@ curl -v -H "Authorization: Token token=d881b7d3_c806_4ce4_aa54_f37fa50feb91" -H 
 ```
 
 **Response**
-===============================================
 ```
 > GET /api/v1/products HTTP/1.1
 > User-Agent: curl/7.35.0
@@ -118,7 +116,6 @@ curl -v -H "Authorization: Token token=d881b7d3_c806_4ce4_aa54_f37fa50feb91" -H 
 ```
 
 **Response**
-===============================================
 ```
 > POST /api/v1/products HTTP/1.1
 > User-Agent: curl/7.35.0
@@ -155,7 +152,6 @@ curl -v -H "Authorization: Token token=d881b7d3_c806_4ce4_aa54_f37fa50feb91" -H 
 ```
 
 **Response**
-===============================================
 ```
 > GET /api/v1/products/54eef9686e69746778010000 HTTP/1.1
 > User-Agent: curl/7.35.0
