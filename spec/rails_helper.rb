@@ -4,6 +4,8 @@ require 'spec_helper'
 require File.expand_path('../../config/environment', __FILE__)
 require 'support/mongoid'
 require 'rspec/rails'
+require 'json_expressions/rspec'
+
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -36,4 +38,18 @@ RSpec.configure do |config|
   # The different available types are documented in the features, such as in
   # https://relishapp.com/rspec/rspec-rails/docs
   config.infer_spec_type_from_file_location!
+
+  config.include FactoryGirl::Syntax::Methods
+
+  config.before(:suite) do
+    FactoryGirl.lint
+    DatabaseCleaner[:mongoid].strategy = :truncation
+    DatabaseCleaner[:mongoid].clean_with(:truncation)
+  end
+
+  config.around(:each) do |example|
+    DatabaseCleaner[:mongoid].cleaning do
+      example.run
+    end
+  end
 end

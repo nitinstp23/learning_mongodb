@@ -16,8 +16,11 @@ group :test do
   gem 'rspec-rails', '~> 3.2.0'
   gem 'mongoid-rspec', '~> 2.1.0'
   gem 'faker'
+  gem 'factory_girl_rails', '~> 4.5.0'
+  gem 'database_cleaner', '~> 1.3.0'
 end
 
 group :development, :test do
   gem 'byebug'
+  gem 'json_expressions'
 end

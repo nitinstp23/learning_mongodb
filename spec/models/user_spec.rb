@@ -12,14 +12,10 @@ RSpec.describe User do
 
   it { is_expected.to validate_uniqueness_of(:email) }
 
-  before do
-    User.delete_all
-  end
-
   describe 'callbacks' do
     describe 'before_create' do
       it 'sets auth_token' do
-        user = User.new(name: 'Nitin', email: 'nitin@example.com', password: 'password')
+        user = build(:user)
         expect(user.auth_token).to be_nil
 
         user.save!
@@ -32,8 +28,9 @@ RSpec.describe User do
   describe '#password=' do
     context 'unencrypted_password parameter is blank' do
       it 'returns nil' do
-        user = User.new(name: 'Nitin', email: 'nitin@example.com')
-        user.password = ["", nil, []].sample
+        password = ["", nil, []].sample
+        user = build(:user, password: password)
+
         expect(user.password).to be_nil
         expect(user.password_hash).to be_nil
       end
@@ -41,9 +38,9 @@ RSpec.describe User do
 
     context 'unencrypted_password parameter is not blank' do
       it 'sets password and password_hash' do
-        user = User.new(name: 'Nitin', email: 'nitin@example.com')
         unencrypted_password = 'password'
-        user.password = unencrypted_password
+        user = build(:user, password: unencrypted_password)
+
         expect(user.password).to eq(unencrypted_password)
         expect(user.password_hash).to eq(BCrypt::Password.new(user.password_hash))
       end
@@ -52,27 +49,28 @@ RSpec.describe User do
 
   describe '#password_confirmation=' do
     it 'sets password_confirmation' do
-      user = User.new(name: 'Nitin', email: 'nitin@example.com')
       unencrypted_password = 'password'
+      user = build(:user, password: unencrypted_password)
       user.password_confirmation = unencrypted_password
+
       expect(user.instance_variable_get(:@password_confirmation)).to eq(unencrypted_password)
     end
   end
 
   describe '#authenticate' do
+    before do
+      @unencrypted_password = 'password'
+      @user = build(:user, password: @unencrypted_password)
+    end
     context 'with correct password' do
       it 'return true' do
-        unencrypted_password = 'password'
-        user = User.new(name: 'Nitin', email: 'nitin@example.com', password: unencrypted_password)
-        expect(user.authenticate(unencrypted_password)).to eq(true)
+        expect(@user.authenticate(@unencrypted_password)).to eq(true)
       end
     end
 
     context 'with incorrect password' do
       it 'return false' do
-        unencrypted_password = 'password'
-        user = User.new(name: 'Nitin', email: 'nitin@example.com', password: unencrypted_password)
-        expect(user.authenticate('wrong password')).to eq(false)
+        expect(@user.authenticate('wrong password')).to eq(false)
       end
     end
   end
