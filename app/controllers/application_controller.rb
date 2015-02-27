@@ -3,7 +3,7 @@ class ApplicationController < ActionController::API
   include ActionController::HttpAuthentication::Token::ControllerMethods
 
   rescue_from Mongoid::Errors::DocumentNotFound do |ex|
-    render json: {parameters: ex.params, message: 'Document Not Found'}, status: :not_found
+    render json: {parameters: ex.params, message: I18n.t['database.errors.not_found']}, status: :not_found
   end
 
   def current_user
@@ -26,6 +26,6 @@ class ApplicationController < ActionController::API
 
   def render_unauthorized
     self.headers['WWW-Authenticate'] = 'Token realm="Application"'
-    render json: 'Bad credentials', status: 401
+    render json: {errors: I18n.t['authentication.error']}, status: 401
   end
 end
