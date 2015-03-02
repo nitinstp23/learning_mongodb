@@ -38,10 +38,6 @@ class User
     self.password_hash = BCrypt::Password.create(unencrypted_password)
   end
 
-  def password_confirmation=(unencrypted_password)
-    @password_confirmation = unencrypted_password
-  end
-
   def authenticate(unencrypted_password)
     BCrypt::Password.new(self.password_hash) == unencrypted_password
   end

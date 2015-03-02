@@ -47,21 +47,12 @@ RSpec.describe User do
     end
   end
 
-  describe '#password_confirmation=' do
-    it 'sets password_confirmation' do
-      unencrypted_password = 'password'
-      user = build(:user, password: unencrypted_password)
-      user.password_confirmation = unencrypted_password
-
-      expect(user.instance_variable_get(:@password_confirmation)).to eq(unencrypted_password)
-    end
-  end
-
   describe '#authenticate' do
     before do
       @unencrypted_password = 'password'
       @user = build(:user, password: @unencrypted_password)
     end
+
     context 'with correct password' do
       it 'return true' do
         expect(@user.authenticate(@unencrypted_password)).to eq(true)
