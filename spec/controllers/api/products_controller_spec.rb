@@ -3,7 +3,7 @@ require 'rails_helper'
 describe API::ProductsController do
 
   let(:user) do
-    user = create(:user)
+    create(:user)
   end
 
   describe 'GET#index' do
