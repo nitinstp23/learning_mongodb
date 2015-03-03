@@ -2,7 +2,11 @@ class API::ProductsController < ApplicationController
   before_action :authenticate
 
   def index
-    render json: Product.all
+    products = Product.order(params[:order])
+                      .page(params[:page])
+                      .per(params[:per_page])
+
+    render json: products
   end
 
   def create

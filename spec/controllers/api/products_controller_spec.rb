@@ -11,17 +11,21 @@ describe API::ProductsController do
       before do
         add_auth_token(user.auth_token)
 
-        @product_1 = create(:product, name: 'Product 1')
-        @product_2 = create(:product, name: 'Product 2')
-
-        get :index
+        @product_1 = create(:product, name: 'Product 1', price: 10.90)
+        @product_2 = create(:product, name: 'Product 2', price: 20.90)
+        @product_3 = create(:product, name: 'Product 3', price: 30.90)
+        @product_4 = create(:product, name: 'Product 4', price: 40.90)
       end
 
       it 'responds with success' do
+        get :index
+
         expect(response.status).to eq(200)
       end
 
       it 'renders products list' do
+        get :index
+
         expected_json = {
           products: [
             {
@@ -35,11 +39,48 @@ describe API::ProductsController do
               name: @product_2.name,
               price: @product_2.price,
               availability: @product_2.availability
+            },
+            {
+              id: @product_3.id.to_s,
+              name: @product_3.name,
+              price: @product_3.price,
+              availability: @product_3.availability
+            },
+            {
+              id: @product_4.id.to_s,
+              name: @product_4.name,
+              price: @product_4.price,
+              availability: @product_4.availability
             }
           ]
         }
 
         expect(response.body).to match_json_expression(expected_json)
+      end
+
+      context 'with pagination and sorting' do
+        it 'renders products list' do
+          get :index, order: 'price desc', per_page: 2, page: 1
+
+          expected_json = {
+            products: [
+              {
+                id: @product_4.id.to_s,
+                name: @product_4.name,
+                price: @product_4.price,
+                availability: @product_4.availability
+              },
+              {
+                id: @product_3.id.to_s,
+                name: @product_3.name,
+                price: @product_3.price,
+                availability: @product_3.availability
+              }
+            ]
+          }
+
+          expect(response.body).to match_json_expression(expected_json)
+        end
       end
     end
 

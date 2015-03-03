@@ -8,6 +8,8 @@ gem 'active_model_serializers'
 # Use ActiveModel has_secure_password
 gem 'bcrypt'
 
+gem 'kaminari'
+
 group :development do
   gem 'thin'
 end
