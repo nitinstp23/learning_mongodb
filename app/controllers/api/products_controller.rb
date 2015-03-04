@@ -2,15 +2,16 @@ class API::ProductsController < ApplicationController
   before_action :authenticate
 
   def index
-    products = Product.order(params[:order])
-                      .page(params[:page])
-                      .per(params[:per_page])
+    products = current_user.products
+                           .order(params[:order])
+                           .page(params[:page])
+                           .per(params[:per_page])
 
     render json: products
   end
 
   def create
-    product = Product.new(product_params)
+    product = current_user.products.new(product_params)
 
     if product.save
       render json: product
@@ -20,11 +21,11 @@ class API::ProductsController < ApplicationController
   end
 
   def show
-    render json: Product.find(params[:id])
+    render json: current_user.products.find(params[:id])
   end
 
   def update
-    product = Product.find(params[:id])
+    product = current_user.products.find(params[:id])
 
     if product.update(product_params)
       render json: product

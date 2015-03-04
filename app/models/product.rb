@@ -5,11 +5,14 @@ class Product
 
   field :name, type: String
   field :price, type: Float
+  field :user_id, type: BSON::ObjectId
   field :availability, type: Boolean, default: true
 
+  belongs_to :user
   # embeds_many :instruments
 
   validates :name, :price, presence: true
   validates :name, uniqueness: true
   validates :price, numericality: true
+  validates :user, presence: true
 end

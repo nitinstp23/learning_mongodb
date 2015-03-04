@@ -16,6 +16,7 @@ class User
 
   attr_reader :password
 
+  has_many :products
   # embeds_many :addresses, validate: false
 
   validates_presence_of :name

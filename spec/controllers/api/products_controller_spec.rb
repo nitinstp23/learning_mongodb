@@ -11,10 +11,10 @@ describe API::ProductsController do
       before do
         add_auth_token(user.auth_token)
 
-        @product_1 = create(:product, name: 'Product 1', price: 10.90)
-        @product_2 = create(:product, name: 'Product 2', price: 20.90)
-        @product_3 = create(:product, name: 'Product 3', price: 30.90)
-        @product_4 = create(:product, name: 'Product 4', price: 40.90)
+        @product_1 = create(:product, name: 'Product 1', price: 10.90, user: user)
+        @product_2 = create(:product, name: 'Product 2', price: 20.90, user: user)
+        @product_3 = create(:product, name: 'Product 3', price: 30.90, user: user)
+        @product_4 = create(:product, name: 'Product 4', price: 40.90, user: user)
       end
 
       it 'responds with success' do
@@ -146,7 +146,7 @@ describe API::ProductsController do
 
   describe 'GET#show' do
     before do
-      @product = create(:product, name: 'Product 1')
+      @product = create(:product, name: 'Product 1', user: user)
     end
 
     context 'with valid auth_token' do
@@ -191,7 +191,7 @@ describe API::ProductsController do
 
   describe 'PUT#update' do
     before do
-      @product = create(:product, name: 'Product 1', price: 10.9, availability: false)
+      @product = create(:product, name: 'Product 1', price: 10.9, availability: false, user: user)
     end
 
     context 'with valid auth_token' do

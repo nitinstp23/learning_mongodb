@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe User do
 
+  it { is_expected.to have_many(:products) }
+
   it { is_expected.to validate_presence_of(:name) }
 
   it { is_expected.to validate_length_of(:password).greater_than(8).with_message("Password must be longer than 8 characters") }

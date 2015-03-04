@@ -7,7 +7,6 @@ gem 'active_model_serializers'
 
 # Use ActiveModel has_secure_password
 gem 'bcrypt'
-
 gem 'kaminari'
 
 group :development do
@@ -20,9 +19,9 @@ group :test do
   gem 'faker'
   gem 'factory_girl_rails', '~> 4.5.0'
   gem 'database_cleaner', '~> 1.3.0'
+  gem 'json_expressions'
 end
 
 group :development, :test do
   gem 'byebug'
-  gem 'json_expressions'
 end
