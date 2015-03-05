@@ -17,7 +17,9 @@ class User
   attr_reader :password
 
   has_many :products
-  # embeds_many :addresses, validate: false
+  embeds_many :addresses, validate: false
+
+  accepts_nested_attributes_for :addresses
 
   validates_presence_of :name
   validates :email, presence: true, email: true
