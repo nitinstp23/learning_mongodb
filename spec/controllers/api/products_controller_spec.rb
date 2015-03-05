@@ -234,4 +234,51 @@ describe API::ProductsController do
     end
   end
 
+
+  describe 'GET#close' do
+    before do
+      @product = create(:product, name: 'product 1',user: user, availability: true)
+    end
+
+    context 'with valid auth token' do
+      before do
+        add_auth_token(user.auth_token)
+        get :close, id: @product.id
+      end
+
+      it 'responds with success' do
+        expect(response.status).to eq(200)
+      end
+
+      it 'returns the product' do
+        expected_json = {
+          product: {
+            id: @product.id,
+            name: @product.name,
+            price: @product.price,
+            availability: false
+          }
+        }
+
+        expect(response.body).to match_json_expression(expected_json)
+      end
+    end
+
+    context 'with invalid auth token' do
+      before do
+        add_auth_token('invalid auth token')
+        get :close, id: @product.id
+      end
+
+      it 'reponds with unauthorized' do
+        expect(response.status).to eq(401)
+      end
+
+      it 'renders error' do
+        expect(response.body).to match_json_expression({errors: I18n.t['authentication.error']})
+      end
+    end
+
+  end
+
 end

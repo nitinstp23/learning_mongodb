@@ -34,6 +34,12 @@ class API::ProductsController < ApplicationController
     end
   end
 
+  def close
+    product = Product.find(params[:id])
+    product.update(availability: false)
+    render json: product
+  end
+
   private
 
   def product_params
