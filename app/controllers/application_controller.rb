@@ -6,6 +6,10 @@ class ApplicationController < ActionController::API
     render json: {parameters: ex.params, message: I18n.t['database.errors.not_found']}, status: :not_found
   end
 
+  rescue_from ActionController::UnpermittedParameters do |ex|
+    render json: {parameters: ex.params, message: ex.message}, status: :bad_request
+  end
+
   def current_user
     @current_user
   end
