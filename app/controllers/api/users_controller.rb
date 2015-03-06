@@ -13,7 +13,7 @@ class API::UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation, address_attributes: [:street, :city, :country])
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, addresses_attributes: [:street, :city, :country])
   end
 
 end

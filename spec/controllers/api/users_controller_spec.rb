@@ -43,7 +43,7 @@ describe API::UsersController do
               email: 'nitin@example.com',
               password: 'password',
               password_confirmation: 'password',
-              addresses: [
+              addresses_attributes: [
                 {
                   street: Faker::Address.street_name,
                   city: Faker::Address.city,
