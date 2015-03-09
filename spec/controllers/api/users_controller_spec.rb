@@ -80,6 +80,99 @@ describe API::UsersController do
           expect(response.body).to match_json_expression(expected_json)
         end
       end
+
+      context 'with home contact' do
+        before do
+          post :create, {
+            user: {
+              name: 'Nitin Misra',
+              email: 'nitin@example.com',
+              password: 'password',
+              password_confirmation: 'password',
+              home_contact_attributes:
+                {
+                  telephone_number: Faker::PhoneNumber.phone_number,
+                  mobile_number: Faker::PhoneNumber.cell_phone,
+                  fax_number: Faker::PhoneNumber.cell_phone
+                }
+
+            }
+          }
+        end
+
+        it 'responds with success' do
+          expect(response.status).to eq(200)
+        end
+
+        it 'creates a user' do
+          user    = User.find_by(email: 'nitin@example.com')
+          home_contact = user.home_contact
+
+          expected_json = {
+            user: {
+              name: user.name,
+              email: user.email,
+              auth_token: user.auth_token,
+              home_contact:
+                {
+                  telephone_number: home_contact.telephone_number,
+                  mobile_number: home_contact.mobile_number,
+                  fax_number: home_contact.fax_number
+                }
+
+            }
+          }
+
+          expect(response.body).to match_json_expression(expected_json)
+        end
+      end
+
+      context 'with office contact' do
+        before do
+          post :create, {
+            user: {
+              name: 'Nitin Misra',
+              email: 'nitin@example.com',
+              password: 'password',
+              password_confirmation: 'password',
+              office_contact_attributes:
+                {
+                  telephone_number: Faker::PhoneNumber.phone_number,
+                  mobile_number: Faker::PhoneNumber.cell_phone,
+                  fax_number: Faker::PhoneNumber.cell_phone
+                }
+
+            }
+          }
+        end
+
+        it 'responds with success' do
+          expect(response.status).to eq(200)
+        end
+
+        it 'creates a user' do
+          user    = User.find_by(email: 'nitin@example.com')
+          office_contact = user.office_contact
+
+          expected_json = {
+            user: {
+              name: user.name,
+              email: user.email,
+              auth_token: user.auth_token,
+              office_contact:
+                {
+                  telephone_number: office_contact.telephone_number,
+                  mobile_number: office_contact.mobile_number,
+                  fax_number: office_contact.fax_number
+                }
+
+            }
+          }
+
+          expect(response.body).to match_json_expression(expected_json)
+        end
+      end
+
     end
 
     context 'with invalid attributes' do
