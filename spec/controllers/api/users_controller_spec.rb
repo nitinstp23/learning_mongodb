@@ -81,37 +81,6 @@ describe API::UsersController do
         end
       end
 
-      context 'without home contact' do
-        before do
-          post :create, {
-            user: {
-              name: 'Nitin Misra',
-              email: 'nitin@example.com',
-              password: 'password',
-              password_confirmation: 'password'
-            }
-          }
-        end
-
-        it 'responds with success' do
-          expect(response.status).to eq(200)
-        end
-
-        it 'creates a user' do
-          user = User.find_by(email: 'nitin@example.com')
-
-          expected_json = {
-            user: {
-              name: user.name,
-              email: user.email,
-              auth_token: user.auth_token
-            }
-          }
-
-          expect(response.body).to match_json_expression(expected_json)
-        end
-      end
-
       context 'with home contact' do
         before do
           post :create, {
@@ -151,37 +120,6 @@ describe API::UsersController do
                   fax_number: home_contact.fax_number
                 }
 
-            }
-          }
-
-          expect(response.body).to match_json_expression(expected_json)
-        end
-      end
-
-      context 'without office contact' do
-        before do
-          post :create, {
-            user: {
-              name: 'Nitin Misra',
-              email: 'nitin@example.com',
-              password: 'password',
-              password_confirmation: 'password'
-            }
-          }
-        end
-
-        it 'responds with success' do
-          expect(response.status).to eq(200)
-        end
-
-        it 'creates a user' do
-          user = User.find_by(email: 'nitin@example.com')
-
-          expected_json = {
-            user: {
-              name: user.name,
-              email: user.email,
-              auth_token: user.auth_token
             }
           }
 
