@@ -18,8 +18,13 @@ class User
 
   has_many :products
   embeds_many :addresses, validate: false
+  embeds_one :home_contact, class_name: "Contact"
+  embeds_one :office_contact,  class_name: "Contact"
+
 
   accepts_nested_attributes_for :addresses
+  accepts_nested_attributes_for :home_contact
+  accepts_nested_attributes_for :office_contact
 
   validates_presence_of :name
   validates :email, presence: true, email: true

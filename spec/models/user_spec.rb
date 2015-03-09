@@ -4,6 +4,8 @@ RSpec.describe User do
 
   it { is_expected.to have_many(:products) }
   it { is_expected.to embed_many(:addresses) }
+  it { is_expected.to embed_one(:home_contact)}
+  it { is_expected.to embed_one(:office_contact)}
 
   it { is_expected.to validate_presence_of(:name) }
 
