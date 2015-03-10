@@ -9,7 +9,7 @@ class Product
   field :availability, type: Boolean, default: true
 
   belongs_to :user
-  embeds_many :reviews
+  has_many :reviews
   # embeds_many :instruments
 
   validates :name, :price, presence: true

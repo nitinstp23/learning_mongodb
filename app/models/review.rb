@@ -7,9 +7,10 @@ class Review
   field :product_id, type: BSON::ObjectId
   field :reviewed_by, type: BSON::ObjectId
 
-  embedded_in :product
+  belongs_to :product
+  belongs_to :user
 
-  validates :message,:rating, presence: true
+  validates :message, :rating, presence: true
   validates :rating, numericality: true
   validates :product, presence: true
   validates :reviewed_by, presence: true

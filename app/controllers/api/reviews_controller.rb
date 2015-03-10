@@ -3,17 +3,13 @@ class API::ReviewsController < ApplicationController
 
   def create
     product = Product.find(params[:id])
-    unless (product.user_id == current_user.id)
-      review = product.reviews.new(review_params)
+    authorize product
 
-      if review.save
-        render json: review
-      else
-        render json: {review: {errors: review.errors}}, status: :internal_server_error
-      end
-
+    review = product.reviews.new(review_params)
+    if review.save
+      render json: review
     else
-      render json: {errors: "You can not review this product"}
+      render json: {review: {errors: review.errors}}, status: :internal_server_error
     end
   end
 

@@ -25,3 +25,5 @@ end
 group :development, :test do
   gem 'byebug'
 end
+
+gem "pundit"
