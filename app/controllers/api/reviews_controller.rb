@@ -3,9 +3,9 @@ class API::ReviewsController < ApplicationController
 
   def create
     product = Product.find(params[:id])
-    authorize product
 
     review = product.reviews.new(review_params)
+    authorize review
     if review.save
       render json: review
     else

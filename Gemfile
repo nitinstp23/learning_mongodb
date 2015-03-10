@@ -9,6 +9,9 @@ gem 'active_model_serializers'
 gem 'bcrypt'
 gem 'kaminari'
 
+gem "pundit"
+
+
 group :development do
   gem 'thin'
 end
@@ -25,5 +28,3 @@ end
 group :development, :test do
   gem 'byebug'
 end
-
-gem "pundit"

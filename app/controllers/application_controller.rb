@@ -37,7 +37,8 @@ class ApplicationController < ActionController::API
     render json: {errors: I18n.t['authentication.error']}, status: 401
   end
 
-  def user_not_authorized
-    render json: { errors: "You are not authorized to review this product."}
+  def user_not_authorized(exception)
+    policy_name = exception.policy.class.to_s.underscore
+    render json: {errors: I18n.t("#{policy_name}.#{exception.query}",scope: "pundit", default: :default)}, status: 401
   end
 end

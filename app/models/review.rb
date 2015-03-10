@@ -1,6 +1,7 @@
 class Review
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Mongoid::Attributes::Dynamic
 
   field :message, type: String
   field :rating, type: Integer
