@@ -9,10 +9,10 @@ class Review
   field :reviewed_by, type: BSON::ObjectId
 
   belongs_to :product
-  belongs_to :user
+  belongs_to :user, foreign_key: :reviewed_by
 
   validates :message, :rating, presence: true
   validates :rating, numericality: true
   validates :product, presence: true
-  validates :reviewed_by, presence: true
+  validates :user, presence: true
 end

@@ -1,15 +1,7 @@
-class ReviewPolicy
-
-  attr_reader :user, :review
-
-  def initialize(user,review)
-    @user = user
-    @review = review
-  end
+class ReviewPolicy < ApplicationPolicy
 
   def create?
-    if review.present?
-      not user.products.include?(review.product)
-    end
+    record.product.user_id != user.id
   end
+
 end

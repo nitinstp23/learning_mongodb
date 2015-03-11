@@ -1,20 +1,29 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe ReviewPolicy do
-  subject { ReviewPolicy.new(user, review) }
 
-  context "User can not review the products created by him" do
-    let(:user) { FactoryGirl.create(:user) }
-    let(:product) { FactoryGirl.create(:product) }
-    let(:review) { nil }
-    it { should_not permit(:create)  }
-  end
+  subject { described_class }
 
-  context "User can review the products created by other users" do
-    let(:user) { FactoryGirl.create(:user) }
-    let(:product) { FactoryGirl.create(:product) }
-    let(:review) { FactoryGirl.create(:review) }
-    it { should permit(:create)  }
+  permissions :create? do
+    context 'for products created by current user' do
+      it 'should not permit' do
+        user    = create(:user)
+        product = create(:product, user: user)
+        review  = build(:review, user: user, product: product)
+
+        expect(subject).not_to permit(user, review)
+      end
+    end
+
+    context 'for products created by other users' do
+      it 'should permit' do
+        user    = create(:user)
+        product = create(:product)
+        review  = build(:review, user: user, product: product)
+
+        expect(subject).to permit(user, review)
+      end
+    end
   end
 
 end

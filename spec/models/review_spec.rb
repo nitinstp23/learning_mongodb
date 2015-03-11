@@ -11,6 +11,6 @@ RSpec.describe Review do
   it { is_expected.to validate_numericality_of(:rating) }
 
   it { is_expected.to validate_presence_of(:product) }
-  it { is_expected.to validate_presence_of(:reviewed_by) }
+  it { is_expected.to validate_presence_of(:user) }
 
 end

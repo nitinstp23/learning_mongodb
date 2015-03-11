@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe API::ReviewsController do
 
-  let(:user) do
+  let(:current_user) do
     create(:user)
   end
 
@@ -15,8 +15,8 @@ describe API::ReviewsController do
 
     context 'with valid auth token' do
       before do
-        add_auth_token(user.auth_token)
-        post :create, { id: @product.id, review: { message: 'Good', rating: 2, product_id: @product.id, reviewed_by: user.id } }
+        add_auth_token(current_user.auth_token)
+        post :create, { id: @product.id, review: { message: 'Good', rating: 2, product_id: @product.id, reviewed_by: current_user.id } }
       end
 
       it 'responds with success' do
@@ -43,7 +43,7 @@ describe API::ReviewsController do
     context 'with invalid auth_token' do
       before do
         add_auth_token('invalid_auth_token')
-        post :create, { id: @product.id, review: { message: 'Good', rating: 2, product_id: @product.id, reviewed_by: user.id } }
+        post :create, { id: @product.id, review: { message: 'Good', rating: 2, product_id: @product.id, reviewed_by: current_user.id } }
       end
 
       it 'responds with unauthorized' do
