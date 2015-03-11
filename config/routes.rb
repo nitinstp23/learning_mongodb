@@ -5,8 +5,12 @@ LearningMongodb::Application.routes.draw do
       post 'users' => 'users#create'
       post 'sessions' => 'sessions#create'
 
+
       resources :products, except: [:new, :edit, :destroy] do
-        get 'close', on: :member
+        member do
+          get 'close'
+          post 'reviews' => 'reviews#create'
+        end
       end
 
     end

@@ -20,6 +20,7 @@ class User
   embeds_many :addresses, validate: false
   embeds_one :home_contact, class_name: "Contact"
   embeds_one :office_contact,  class_name: "Contact"
+  has_many :reviews
 
 
   accepts_nested_attributes_for :addresses

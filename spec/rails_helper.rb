@@ -4,6 +4,7 @@ require 'spec_helper'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rspec/rails'
 require 'json_expressions/rspec'
+require 'pundit/rspec'
 
 # require all files under spec/support
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }

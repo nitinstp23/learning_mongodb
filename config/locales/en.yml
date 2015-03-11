@@ -4,3 +4,8 @@ en:
   database:
     errors:
       not_found: 'Document not found'
+
+  pundit:
+    default: 'You cannot perform this action.'
+    review_policy:
+      create?: 'You cannot review this product!'
