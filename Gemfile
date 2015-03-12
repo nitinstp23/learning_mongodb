@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '4.2.0'
 gem 'mongoid', '~> 4.0.0'
-gem 'rails-api'
+gem 'rails-api', '~> 0.4.0'
 gem 'active_model_serializers'
 
 # Use ActiveModel has_secure_password

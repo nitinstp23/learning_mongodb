@@ -183,6 +183,6 @@ DEPENDENCIES
   mongoid-rspec (~> 2.1.0)
   pundit
   rails (= 4.2.0)
-  rails-api
+  rails-api (~> 0.4.0)
   rspec-rails (~> 3.2.0)
   thin

@@ -14,6 +14,9 @@ class User
   field :password_hash, type: String
   field :auth_token, type: String
 
+  index({ auth_token: 1 }, { name: 'auth_token_index' })
+  index({ email: 1 }, { name: 'email_index', unique: true, drop_dups: true })
+
   attr_reader :password
 
   has_many :products
