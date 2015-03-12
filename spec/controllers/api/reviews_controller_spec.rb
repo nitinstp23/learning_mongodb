@@ -151,7 +151,6 @@ describe API::ReviewsController do
   end
 
   describe 'POST#create' do
-
     before do
       @user = create(:user, name: "Test User", email: "test@example.com", password: "password")
       @product = create(:product, name: 'Product 1', price: 10.90, user: @user)
@@ -200,5 +199,4 @@ describe API::ReviewsController do
     end
 
   end
-
 end
