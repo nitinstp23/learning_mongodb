@@ -13,6 +13,7 @@ class User
   field :email, type: String
   field :password_hash, type: String
   field :auth_token, type: String
+  index :name
 
   attr_reader :password
 

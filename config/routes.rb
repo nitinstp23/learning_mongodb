@@ -4,6 +4,7 @@ LearningMongodb::Application.routes.draw do
     scope :v1 do
       post 'users' => 'users#create'
       post 'sessions' => 'sessions#create'
+      get 'reviews' => 'reviews#index'
 
 
       resources :products, except: [:new, :edit, :destroy] do
