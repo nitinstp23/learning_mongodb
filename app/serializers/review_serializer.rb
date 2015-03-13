@@ -1,4 +1,4 @@
-class API::ReviewSerializer < ActiveModel::Serializer
+class ReviewSerializer < ActiveModel::Serializer
   attributes :id, :message, :rating, :reviewed_by, :product_id
 
   def id
