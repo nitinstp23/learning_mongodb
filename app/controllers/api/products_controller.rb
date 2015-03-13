@@ -40,6 +40,13 @@ class API::ProductsController < ApplicationController
     render json: product
   end
 
+  def view_product
+    product = Product.find(params[:id])
+    product_view = ProductView.where(user_id: current_user, product_id: product).first_or_initialize
+    product_view.update(viewed_at: Time.now)
+    render json: product_view
+  end
+
   private
 
   def product_params

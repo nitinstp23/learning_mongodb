@@ -10,6 +10,7 @@ class Product
 
   belongs_to :user
   has_many :reviews
+  has_many :product_views
   # embeds_many :instruments
 
   validates :name, :price, presence: true

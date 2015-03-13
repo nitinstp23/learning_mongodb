@@ -11,6 +11,7 @@ LearningMongodb::Application.routes.draw do
         member do
           get 'close'
           post 'reviews' => 'reviews#create'
+          get 'view_product'
         end
       end
 
