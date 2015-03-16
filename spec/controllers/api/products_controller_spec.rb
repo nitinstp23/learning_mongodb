@@ -153,29 +153,20 @@ describe API::ProductsController do
       before do
         add_auth_token(user.auth_token)
         get :show, id: @product.id
+        @product.add_view(user)
       end
 
       it 'responds with success' do
         expect(response.status).to eq(200)
       end
 
-      it 'returns the product and product view' do
-        product_view = ProductView.where(product_id: @product, user_id: user).first_or_initialize
-        product_view.update(viewed_at: Time.now)
-
+      it 'returns the product' do
         expected_json = {
-          product_view: {
-            id: product_view.id,
-            product_id: product_view.product_id,
-            user_id: product_view.user_id,
-            viewed_at: product_view.viewed_at.to_datetime.to_s,
-            product: {
-              id: @product.id.to_s,
-              name: @product.name,
-              price: @product.price,
-              availability: @product.availability,
-              user_id: @product.user_id.to_s
-            }
+          product: {
+            id: @product.id.to_s,
+            name: @product.name,
+            price: @product.price,
+            availability: @product.availability
           }
         }
 

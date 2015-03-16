@@ -22,10 +22,9 @@ class API::ProductsController < ApplicationController
 
   def show
     product = Product.find(params[:id])
+    product.add_view(current_user)
 
-    product_view = ProductView.where(user_id: current_user, product_id: product).first_or_initialize
-    product_view.update(viewed_at: Time.now)
-    render json: product_view
+    render json: product
   end
 
   def update
