@@ -159,13 +159,23 @@ describe API::ProductsController do
         expect(response.status).to eq(200)
       end
 
-      it 'returns the product' do
+      it 'returns the product and product view' do
+        product_view = ProductView.where(product_id: @product, user_id: user).first_or_initialize
+        product_view.update(viewed_at: Time.now)
+
         expected_json = {
-          product: {
-            id: @product.id.to_s,
-            name: @product.name,
-            price: @product.price,
-            availability: @product.availability
+          product_view: {
+            id: product_view.id,
+            product_id: product_view.product_id,
+            user_id: product_view.user_id,
+            viewed_at: product_view.viewed_at.to_datetime.to_s,
+            product: {
+              id: @product.id.to_s,
+              name: @product.name,
+              price: @product.price,
+              availability: @product.availability,
+              user_id: @product.user_id.to_s
+            }
           }
         }
 
@@ -281,53 +291,5 @@ describe API::ProductsController do
 
   end
 
-  describe "GET#view_product" do
-    before do
-      @product = create(:product, {name: "Product 1", price: 10.20, user_id: user})
-    end
-
-    context 'with valid auth_token' do
-      before do
-        add_auth_token(user.auth_token)
-        get :view_product, id: @product
-      end
-
-      it 'responds with success' do
-        expect(response.status).to eq(200)
-      end
-
-      it 'it creates a product view' do
-        product_view = ProductView.where(product_id: @product, user_id: user).first_or_initialize
-        product_view.update(viewed_at: Time.now)
-
-        expected_json = {
-          product_view: {
-            id: product_view.id.to_s,
-            product_id: product_view.product_id,
-            user_id: product_view.user_id,
-            viewed_at: product_view.viewed_at.to_datetime.to_s
-          }
-        }
-
-        expect(response.body).to match_json_expression(expected_json)
-      end
-    end
-
-    context 'with invalid_auth_token' do
-      before do
-        add_auth_token('invalid_auth_token')
-        get :view_product, id: @product
-      end
-
-      it 'reponds with unauthorized' do
-        expect(response.status).to eq(401)
-      end
-
-      it 'renders error' do
-        expect(response.body).to match_json_expression({errors: I18n.t['authentication.error']})
-      end
-
-    end
-  end
 
 end
