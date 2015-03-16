@@ -19,8 +19,8 @@ class Product
   validates :user, presence: true
 
   def add_view(user)
-    product_view = ProductView.where(user_id: user, product_id: self).first_or_initialize do |pv|
-      pv.viewed_at = Time.now
+    product_view = self.views.where(user_id: user).first_or_initialize do |pv|
+      pv.viewed_at = Time.zone.now.to_datetime
     end
 
     product_view.save

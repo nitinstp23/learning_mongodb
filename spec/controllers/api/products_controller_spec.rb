@@ -153,7 +153,6 @@ describe API::ProductsController do
       before do
         add_auth_token(user.auth_token)
         get :show, id: @product.id
-        @product.add_view(user)
       end
 
       it 'responds with success' do
@@ -161,6 +160,9 @@ describe API::ProductsController do
       end
 
       it 'returns the product' do
+        viewed_at = @product.views.first.viewed_at
+        expect(viewed_at).to eq viewed_at
+
         expected_json = {
           product: {
             id: @product.id.to_s,
