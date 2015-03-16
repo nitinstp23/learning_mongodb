@@ -23,6 +23,7 @@ group :test do
   gem 'factory_girl_rails', '~> 4.5.0'
   gem 'database_cleaner', '~> 1.3.0'
   gem 'json_expressions'
+  gem 'timecop'
 end
 
 group :development, :test do

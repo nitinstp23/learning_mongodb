@@ -24,6 +24,7 @@ class User
   embeds_one :home_contact, class_name: "Contact"
   embeds_one :office_contact,  class_name: "Contact"
   has_many :reviews
+  has_many :product_views
 
 
   accepts_nested_attributes_for :addresses

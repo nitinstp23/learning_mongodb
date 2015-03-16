@@ -160,6 +160,9 @@ describe API::ProductsController do
       end
 
       it 'returns the product' do
+        viewed_at = @product.views.first.viewed_at
+        expect(viewed_at).to eq viewed_at
+
         expected_json = {
           product: {
             id: @product.id.to_s,
@@ -280,5 +283,6 @@ describe API::ProductsController do
     end
 
   end
+
 
 end

@@ -21,7 +21,10 @@ class API::ProductsController < ApplicationController
   end
 
   def show
-    render json: current_user.products.find(params[:id])
+    product = Product.find(params[:id])
+    product.add_view(current_user)
+
+    render json: product
   end
 
   def update
@@ -39,6 +42,7 @@ class API::ProductsController < ApplicationController
     product.update(availability: false)
     render json: product
   end
+
 
   private
 
