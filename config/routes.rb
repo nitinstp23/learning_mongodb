@@ -3,9 +3,9 @@ LearningMongodb::Application.routes.draw do
   namespace :api, defaults: {format: 'json'} do
     scope :v1 do
       post 'users' => 'users#create'
+      post 'auth/:provider' => 'oauths#create'
       post 'sessions' => 'sessions#create'
       get 'reviews' => 'reviews#index'
-
 
       resources :products, except: [:new, :edit, :destroy] do
         member do
@@ -13,7 +13,6 @@ LearningMongodb::Application.routes.draw do
           post 'reviews' => 'reviews#create'
         end
       end
-
     end
   end
 

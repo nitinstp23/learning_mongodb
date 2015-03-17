@@ -13,7 +13,6 @@ class ApplicationController < ActionController::API
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
-
   def current_user
     @current_user
   end
@@ -39,6 +38,6 @@ class ApplicationController < ActionController::API
 
   def user_not_authorized(exception)
     policy_name = exception.policy.class.to_s.underscore
-    render json: {errors: I18n.t("#{policy_name}.#{exception.query}",scope: "pundit", default: :default)}, status: 401
+    render json: {errors: I18n.t("#{policy_name}.#{exception.query}", scope: "pundit", default: :default)}, status: 401
   end
 end

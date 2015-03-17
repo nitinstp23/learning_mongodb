@@ -1,0 +1,13 @@
+# facebook app settings
+
+development:
+  app_id: APP_ID
+  secret_key: APP_SECRET
+
+test:
+  app_id: APP_ID
+  secret_key: APP_SECRET
+
+# production:
+#   app_id: YOUR APP ID
+#   secret_key: YOUR SECRET

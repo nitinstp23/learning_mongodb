@@ -9,3 +9,9 @@ en:
     default: 'You cannot perform this action.'
     review_policy:
       create?: 'You cannot review this product!'
+
+  user:
+    validations:
+      password:
+        min_length: "Password must be longer than 8 characters"
+        confirmation: "Password confirmation must match given password"

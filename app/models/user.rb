@@ -21,10 +21,9 @@ class User
 
   has_many :products
   embeds_many :addresses, validate: false
-  embeds_one :home_contact, class_name: "Contact"
-  embeds_one :office_contact,  class_name: "Contact"
+  embeds_one :home_contact, class_name: 'Contact'
+  embeds_one :office_contact, class_name: 'Contact'
   has_many :reviews
-
 
   accepts_nested_attributes_for :addresses
   accepts_nested_attributes_for :home_contact
@@ -33,13 +32,6 @@ class User
   validates_presence_of :name
   validates :email, presence: true, email: true
   validates_uniqueness_of :email
-
-  validate do |record|
-    record.errors.add(:password, :blank) if record.password_hash.blank?
-  end
-
-  validates_length_of :password, minimum: 8, message: "Password must be longer than 8 characters"
-  validates_confirmation_of :password, message: "Password confirmation must match given password"
 
   before_create :set_auth_token
 

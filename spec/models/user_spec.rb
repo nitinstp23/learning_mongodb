@@ -9,9 +9,6 @@ RSpec.describe User do
 
   it { is_expected.to validate_presence_of(:name) }
 
-  it { is_expected.to validate_length_of(:password).greater_than(8).with_message("Password must be longer than 8 characters") }
-  it { is_expected.to validate_confirmation_of(:password) }
-
   it { is_expected.to validate_presence_of(:email) }
   it { is_expected.to custom_validate(:email).with_validator(EmailValidator) }
 
