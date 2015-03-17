@@ -11,7 +11,10 @@ class Product
   belongs_to :user
   has_many :reviews
   has_many :views, class_name: "ProductView"
+  embeds_many :tags
   # embeds_many :instruments
+
+  accepts_nested_attributes_for :tags
 
   validates :name, :price, presence: true
   validates :name, uniqueness: true

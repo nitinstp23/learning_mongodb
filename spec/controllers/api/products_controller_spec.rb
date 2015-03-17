@@ -11,10 +11,10 @@ describe API::ProductsController do
       before do
         add_auth_token(user.auth_token)
 
-        @product_1 = create(:product, name: 'Product 1', price: 10.90, user: user)
-        @product_2 = create(:product, name: 'Product 2', price: 20.90, user: user)
-        @product_3 = create(:product, name: 'Product 3', price: 30.90, user: user)
-        @product_4 = create(:product, name: 'Product 4', price: 40.90, user: user)
+        @product_1 = create(:product, name: 'Product 1', price: 10.90, user: user, tags_attributes: [ { name: 'tag 1' } ])
+        @product_2 = create(:product, name: 'Product 2', price: 20.90, user: user, tags_attributes: [ { name: 'tag 2' } ])
+        @product_3 = create(:product, name: 'Product 3', price: 30.90, user: user, tags_attributes: [ { name: 'tag 3' } ])
+        @product_4 = create(:product, name: 'Product 4', price: 40.90, user: user, tags_attributes: [ { name: 'tag 4' } ])
       end
 
       it 'responds with success' do
@@ -32,25 +32,45 @@ describe API::ProductsController do
               id: @product_1.id.to_s,
               name: @product_1.name,
               price: @product_1.price,
-              availability: @product_1.availability
+              availability: @product_1.availability,
+              tags:[
+                {
+                  name: @product_1.tags.first.name
+                }
+              ]
             },
             {
               id: @product_2.id.to_s,
               name: @product_2.name,
               price: @product_2.price,
-              availability: @product_2.availability
+              availability: @product_2.availability,
+              tags:[
+                {
+                  name: @product_2.tags.first.name
+                }
+              ]
             },
             {
               id: @product_3.id.to_s,
               name: @product_3.name,
               price: @product_3.price,
-              availability: @product_3.availability
+              availability: @product_3.availability,
+              tags:[
+                {
+                  name: @product_3.tags.first.name
+                }
+              ]
             },
             {
               id: @product_4.id.to_s,
               name: @product_4.name,
               price: @product_4.price,
-              availability: @product_4.availability
+              availability: @product_4.availability,
+              tags:[
+                {
+                  name: @product_4.tags.first.name
+                }
+              ]
             }
           ]
         }
@@ -68,13 +88,23 @@ describe API::ProductsController do
                 id: @product_4.id.to_s,
                 name: @product_4.name,
                 price: @product_4.price,
-                availability: @product_4.availability
+                availability: @product_4.availability,
+                tags:[
+                  {
+                    name: @product_4.tags.first.name
+                  }
+                ]
               },
               {
                 id: @product_3.id.to_s,
                 name: @product_3.name,
                 price: @product_3.price,
-                availability: @product_3.availability
+                availability: @product_3.availability,
+                tags:[
+                  {
+                    name: @product_3.tags.first.name
+                  }
+                ]
               }
             ]
           }
@@ -105,7 +135,7 @@ describe API::ProductsController do
       before do
         add_auth_token(user.auth_token)
 
-        post :create, { product: { name: 'Product 1', price: 10.90, availability: false } }
+        post :create, { product: { name: 'Product 1', price: 10.90, availability: false, tags_attributes: [ { name: 'tag 1' } ] } }
       end
 
       it 'responds with success' do
@@ -115,12 +145,18 @@ describe API::ProductsController do
       it 'creates a product' do
         product = Product.find_by(name: 'Product 1')
 
+
         expected_json = {
           product: {
             id: product.id.to_s,
             name: product.name,
             price: product.price,
-            availability: product.availability
+            availability: product.availability,
+            tags:[
+              {
+                name: product.tags.first.name
+              }
+            ]
           }
         }
 
@@ -146,7 +182,7 @@ describe API::ProductsController do
 
   describe 'GET#show' do
     before do
-      @product = create(:product, name: 'Product 1', user: user)
+      @product = create(:product, name: 'Product 1', user: user, tags_attributes: [ { name: 'tag 1'} ])
     end
 
     context 'with valid auth_token' do
@@ -168,7 +204,12 @@ describe API::ProductsController do
             id: @product.id.to_s,
             name: @product.name,
             price: @product.price,
-            availability: @product.availability
+            availability: @product.availability,
+            tags:[
+              {
+                name: @product.tags.first.name
+              }
+            ]
           }
         }
 
@@ -194,7 +235,7 @@ describe API::ProductsController do
 
   describe 'PUT#update' do
     before do
-      @product = create(:product, name: 'Product 1', price: 10.9, availability: false, user: user)
+      @product = create(:product, name: 'Product 1', price: 10.9, availability: false, user: user, tags_attributes: [ { name: 'tag 1'} ])
     end
 
     context 'with valid auth_token' do
@@ -213,7 +254,12 @@ describe API::ProductsController do
             id: @product.id.to_s,
             name: 'Product 2',
             price: 20.9,
-            availability: true
+            availability: true,
+            tags: [
+              {
+                name: @product.tags.first.name
+              }
+            ]
           }
         }
 
@@ -240,7 +286,7 @@ describe API::ProductsController do
 
   describe 'GET#close' do
     before do
-      @product = create(:product, name: 'product 1',user: user, availability: true)
+      @product = create(:product, name: 'product 1',user: user, availability: true, tags_attributes: [ { name: 'tag 1' } ])
     end
 
     context 'with valid auth token' do
@@ -259,7 +305,12 @@ describe API::ProductsController do
             id: @product.id,
             name: @product.name,
             price: @product.price,
-            availability: false
+            availability: false,
+            tags: [
+              {
+                name: @product.tags.first.name
+              }
+            ]
           }
         }
 

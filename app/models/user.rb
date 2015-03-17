@@ -13,6 +13,7 @@ class User
   field :email, type: String
   field :password_hash, type: String
   field :auth_token, type: String
+  field :is_admin, type: Boolean, default: false
 
   index({ auth_token: 1 }, { name: 'auth_token_index' })
   index({ email: 1 }, { name: 'email_index', unique: true, drop_dups: true })
